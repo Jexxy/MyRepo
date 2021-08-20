@@ -14,6 +14,9 @@ product_of_numbers = first_num*second_num
 # Saving the quotient of the two numbers. If it divides by zero, it will instead change the variable to a string
 # saying it is unable to divide by zero. Another way of handling this would be to not allow zero to be entered
 # at the beginning and raise an exception if either of the numbers are zero.
+# When testing, I ran across an interesting feature of python. ZeroDivisionError is only raised when the second argument
+# of a division or modulo operation is zero, but not the first.
+
 try:
     quotient_of_numbers = first_num/second_num
 except ZeroDivisionError:
