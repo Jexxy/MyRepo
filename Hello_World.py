@@ -9,3 +9,4 @@ else:
     print("You can literally read the code, even a5 year old could figure out how to make this do something")
 
 # Did not wanna do something complicated like jon and amos, but I did not want a regular hello world
+# I made this before you sh
