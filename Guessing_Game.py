@@ -26,12 +26,12 @@ elif platform == "linux":
 def get_guess():
     while True:  # Use a while loop here so it will continue the program unless otherwise told, and will not crash.
         try:  # Get user's guess
-            cls()
             guess_num = int(input('''Please enter a number between 1-100 to make your guess: '''))
+            cls()
         except ValueError:  # Catches the ValueError that happens when people don't put in a number
             while True:  # Starts a loop here so they HAVE to type Y or N, any other input simply wont work.
-                try_again = input("You must enter a number! Try again? Y/N: ")
-                if try_again.lower() == "y" or try_again.lower() == "n":  # Making sure the input is Y or N
+                try_again = input("You must enter a number! Try again? Y/n: ")
+                if try_again.lower() == "y" or try_again.lower() == "n" or try_again == "":  # Making sure the input is Y or N
                     if try_again.lower() == "n":
                         exit(0)  # Exits the program with exit code 0
                     else:
@@ -41,8 +41,8 @@ def get_guess():
             return guess_num
         else:
             while True:
-                try_again = input("Your guess is not between 1-100! Do you want to try again? Y/N: ")
-                if try_again.lower() == "y" or try_again.lower() == "n":
+                try_again = input("Your guess is not between 1-100! Do you want to try again? Y/n: ")
+                if try_again.lower() == "y" or try_again.lower() == "n" or try_again == "":
                     if try_again.lower() == "n":
                         exit(0)
                     else:
@@ -52,32 +52,39 @@ def get_guess():
 def main():
     random_number = rand.randrange(1, 100)
     game_iteration = 1
+    previous_guesses = []
     while True:
+        cls()
         ready_to_start = input('''Welcome to the guessing game!
         A Random number between 1-100 has already been generated!
-        When ready, please type "Y" to start or type "N" to exit: ''')
-        if ready_to_start.lower() != "y":
+        Are you ready to start? Y/n: ''')
+        cls()
+        if ready_to_start.lower() == "y" or ready_to_start.lower() == "n" or ready_to_start == "":
             if ready_to_start.lower() == "n":
                 exit(0)
             else:
-                print("Please type Y OR N!")
-                continue
-        else:
-            break
+                break
     while True:
-        print(random_number)
         user_guess = get_guess()
+        previous_guesses.append(user_guess)
         if game_iteration == 5:
-            print("You have guessed five times! You lost!")
+            print(f"You have guessed five times! You lost! The random number was:{random_number}")
             break
         elif user_guess == random_number:
             print("Congrats! You have guessed correctly!")
             break
         elif user_guess < random_number:
             print("Your guess was lower than the random number.")
+            print(f"Your previous guesses were: {previous_guesses}")
         elif user_guess > random_number:
             print("Your guess was higher than the random number.")
+            print(f"Your previous guesses were: {previous_guesses}")
+        if game_iteration == 5:
+            play_again = input("Would you like to play again? Y/n: ")
+            if play_again.lower() == "y" or play_again == "":
+                continue
+            else:
+                exit(0)
         game_iteration += 1
-    play_again = input("Would you like to play again? Y/N: ")
 
 main()
