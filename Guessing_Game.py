@@ -1,21 +1,8 @@
-# The guessing game will have the following requirements:
-#
-# Randomly generate a number between 1 and 100 (10 points)
-# Not accept numbers less then 1 (5 points)
-# Not accept numbers greater then 100 (5 points)
-# Let the user know if the guess is to high or to low (5 points)
-# Have a limit of 5 trys (5 points)
-# Exit the game if the number is guessed with a 'you win' type remark (5 points)
-# Exit the game if the number of trys goes over the limit with a 'you lose' type remark (5 points)
-# Extra Credit:
-
-# After the game, ask the user if they would like to play again (10 points)
-
 import random as rand
-import sys
 from os import system
 from sys import platform
 
+# Checks if system is linux or windows, and gives the correct clear function to cls()
 if platform == "win32":
     cls = lambda: system('cls')
 elif platform == "linux":
@@ -37,10 +24,10 @@ def get_guess():
                     else:
                         break  # Breaking the nested while loop
             continue  # Continues to the next iteration of the loop. Otherwise it would just do the if statement.
-        if 0 < guess_num < 100 and isinstance(guess_num, int):
+        if 0 < guess_num < 100 and isinstance(guess_num, int):  # Checks if guess_num is between 1 and 100
             return guess_num
         else:
-            while True:
+            while True:  # user enters y, n, or null to continue. Lets user know num anything outside 1-100 will error
                 try_again = input("Your guess is not between 1-100! Do you want to try again? Y/n: ")
                 if try_again.lower() == "y" or try_again.lower() == "n" or try_again == "":
                     if try_again.lower() == "n":
@@ -50,10 +37,10 @@ def get_guess():
 
 
 def main():
-    random_number = rand.randrange(1, 100)
-    game_iteration = 1
-    previous_guesses = []
-    while True:
+    random_number = rand.randrange(1, 100)  # Generates the random number
+    game_iteration = 1  # Keeps track of the game iteration
+    previous_guesses = []  # Stores previous guess to display them later.
+    while True:  # Firs thing the user sees, asks them if they are ready to play.
         cls()
         ready_to_start = input('''Welcome to the guessing game!
         A Random number between 1-100 has already been generated!
@@ -64,11 +51,11 @@ def main():
                 exit(0)
             else:
                 break
-    while True:
+    while True:  # Win/Lose states + Higher lower states, as well as displays previous guesses.
         user_guess = get_guess()
         previous_guesses.append(user_guess)
         if game_iteration == 5:
-            print(f"You have guessed five times! You lost! The random number was:{random_number}")
+            print(f"You have guessed five times! You lost! The random number was: {random_number}")
             break
         elif user_guess == random_number:
             print("Congrats! You have guessed correctly!")
@@ -80,11 +67,12 @@ def main():
             print("Your guess was higher than the random number.")
             print(f"Your previous guesses were: {previous_guesses}")
         if game_iteration == 5:
-            play_again = input("Would you like to play again? Y/n: ")
+            play_again = input("Would you like to play again? Y/n: ")  # Checking to see if they want to play again.
             if play_again.lower() == "y" or play_again == "":
                 continue
             else:
                 exit(0)
         game_iteration += 1
+
 
 main()
