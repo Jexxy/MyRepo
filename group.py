@@ -15,4 +15,4 @@ total = sum(cost)
 average = int(total)/(len(people))
 print(cost, people, total, average)
 
-#  awe come on i wanted to finish this :(
+ # We figured my original solution was the cleanest. does not tell who is above the average
